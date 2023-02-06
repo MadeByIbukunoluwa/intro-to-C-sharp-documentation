@@ -30,6 +30,26 @@ using System.Reflection;
         //  Tuples
         (double Sum, int Count) t2 = (5.8, 4);
         Console.WriteLine($"Sum of {t2.Count} elements is {t2.Sum}");
+        //This 
+        int x, y, z;
+        x = 3;
+        y = 4;
+        z = 5;
+        Console.WriteLine("x={0} y ={1} z ={2}", x, y, z);
+        // Is equivalent to this
+        //int x = 3, y = 4, z = 5;
+        //string s = "x={0} y={1} z={2}";
+        //object[] args = new object[3];
+        //args[0] = x;
+        //args[1] = y;
+        //args[2] = z;
+        //Console.WriteLine(s, args);
+        Entity.SetNextSerialNo(1000);
+        Entity e1 = new();
+        Entity e2 = new();
+        //Console.WriteLine(e1.GetSerialNo());
+        //Console.WriteLine(e2.GetSerialNo());
+        //Console.WriteLine(Entity.GetNextSerialNo());
     }
     // Traditonal class
     public class Point
@@ -114,7 +134,159 @@ using System.Reflection;
     // Nullable and non-Nullable types
     int? optionalInt = default;
    
-  
+    // C# Program building blocks
+    //Field
+    public class Color
+    {
+        public static readonly Color Black = new Color(0, 0, 0);
+        public static readonly Color  White = new Color(0, 0, 0);
+        public static readonly Color Red = new Color(0, 0, 0);
+        public static readonly Color Green = new Color(0, 0, 0);
+        public static readonly Color Blue = new Color(0, 0, 0);
+
+        public byte R;
+        public byte G;
+        public byte B;
+
+        public override string ToString() => "This is an object";
+        public Color (byte r, byte g, byte b)
+        {
+            R = r;
+            G = g;
+            B = b;
+        }
+    }
+    static void Swap(ref int x, ref int y)
+    {
+        int temp = x;
+        x = y;
+        y = temp;
+    }
+    public static void SwapExample()
+    {
+        int i = 1, j = 2;
+        Swap(ref i, ref j);
+        Console.WriteLine($"{i}{j}");
+    }
+    static void Divide (int x, int y, out int quotient,out int remainder)
+    {
+        quotient = x / y;
+        remainder = x % y;
+    }
+    public static void OutUsage ()
+    {
+        Divide(10, 3, out int quo, out int rem);
+        Console.WriteLine($"{quo} {rem}");
+    }
+    public class Console
+    {
+        public static void Write(string fmt, params object[] args) { }
+        public static void WriteLine(string fmt, params object[] args) { }
+    }
+    class Squares
+    {
+        public static void WriteSquares()
+        {
+            int i = 0;
+            int j;
+            while (i < 10)
+            {
+                j = i * i;
+                Console.WriteLine($"{i} x {i} = {j}");
+                i++;
+            }
+        }
+    }
+    //Statci and instance methods 
+    class Entity
+    {
+        static int s_nextSerialNo;
+        int _serialNo;
+
+        public Entity()
+        {
+            _serialNo = s_nextSerialNo++;
+        }
+        public int GetSerialNo()
+        {
+            return _serialNo;
+        }
+        public static int GetNextSerialNo()
+        {
+            return s_nextSerialNo;
+        }
+        public static void SetNextSerialNo(int value)
+        {
+            s_nextSerialNo = value; 
+        }
+
+        public abstract class Expression
+        {
+            public abstract double Evaluate(Dictionary<string, object> vars);
+        }
+        public class Constant : Expression
+        {
+            double _value;
+
+            public Constant(double value)
+            {
+                _value = value;
+            }
+            public override double Evaluate(Dictionary<string, object> vars)
+            {
+                return _value;
+            }
+        }
+        public class VariableReference : Expresssion
+        {
+            string _name;
+
+        }
+        class OverloadingExample
+        {
+            static void F() => Console.WriteLine("F()");
+            static void F(object x) => Console.WriteLine("F()");
+            static void F(int x) => Console.WriteLine("F()");
+            static void F(double x) => Console.WriteLine("F()");
+            static void F<T>(T x) => Console.WriteLine("F()");
+            static void F(double x , double y) => Console.WriteLine("F()");
+
+            public static void UsageExample()
+            {
+                F();
+                F(1);
+                F(1.0);
+                F("abc");  
+                F((double)1);
+                F(1,1);
+            }
+        }
+        // MyList<T>
+
+        // Constructors
+
+        //Properties
+
+        //Indexer
+
+        // Event
+        class EventExample
+        {
+            static int s_changeCount;
+
+            static void ListChanged (object sender, EventArgs e)
+            {
+                s_changeCount++;
+            }
+            public static void Usage()
+            {
+                //list
+                Console.WriteLine(s_changeCount.ToString());
+            }
+        }
+        // Operators
+        //Finalizers
+    }
 }
 
 
