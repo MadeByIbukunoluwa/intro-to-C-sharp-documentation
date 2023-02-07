@@ -2,9 +2,8 @@
 
 using System;
 using System.Reflection;
-
-    class Hello
-{
+using System.Appl
+class Hello {
     static void Main()
     {
         Console.WriteLine("Hello");
@@ -47,9 +46,64 @@ using System.Reflection;
         Entity.SetNextSerialNo(1000);
         Entity e1 = new();
         Entity e2 = new();
-        //Console.WriteLine(e1.GetSerialNo());
-        //Console.WriteLine(e2.GetSerialNo());
-        //Console.WriteLine(Entity.GetNextSerialNo());
+        Console.WriteLine(e1.GetSerialNo().ToString());
+        Console.WriteLine(e2.GetSerialNo().ToString());
+        Console.WriteLine(Entity.GetNextSerialNo().ToString());
+
+        //Arrays, collections and LINQ
+        // One dimensional array iteration 
+        int[] c = new int[10];
+
+        for (int k = 0; k < c.Length; k++)
+        {
+            c[k] = k * k;
+        }
+        for (int k = 0; k < c.Length; k++)
+        {
+            Console.WriteLine($"c[{i}] = {c[i]}");
+        }
+
+        int[] a1 = new int[10];
+        int[,] a2 = new int[10, 5];
+        int[,,] a3 = new int[10, 5, 2];
+
+        int[][] d = new int[3][];
+        d[0] = new int[74];
+        d[1] = new int[5];
+        d[2] = new int[20];
+        //Longer version
+        //int[] e = new int[] { 1, 2, 3 };
+        int[] e = { 1, 2, 3 };
+         
+        foreach(int item in c )
+        {
+            Console.WriteLine(item.ToString());
+        }
+        //delegate 
+        double[] g = { 0.0, 0.5, 1.0 };
+        double[] squares = Apply(g, (x) => x * x);
+        double[] sines = Apply(g, Math.Sin);
+        Multiplier m = new(2.0);
+        double[] doubles = Apply(a, m.Multiply);
+
+        // Atributes
+          Type widgetType = typeof(Widget);
+
+         object[] widgetClassAttributes = widgetType.GetCustomAttributes(typeof(HelpAttribute), false);
+        if (widgetClassAttributes.Length > 0)
+        {
+            HelpAttribute attr = (HelpAttribute)widgetClassAttributes[0];
+            Console.WriteLine($"Widget class help URL :{attr.Url} - Related topic : {attr.Topic}");
+        }
+        System.Reflection.MethodInfo displayMethod = widgetType.GetMethod(nameof(Widget.Display));
+
+        object[] displayMethodAttributes = displayMethod.GetCustomAttributes(typeof(HelpAttribute), false);
+
+        if (displayMethodAttributes.Length > 0)
+        {
+            HelpAttribute attr = (HelpAttribute)displayMethodAttributes[0];
+            Console.WriteLine($"Display method help URL : {attr.Url} - Related topic : {attr.Topic}");
+        }
     }
     // Traditonal class
     public class Point
@@ -156,6 +210,7 @@ using System.Reflection;
             B = b;
         }
     }
+    //Reference variables 
     static void Swap(ref int x, ref int y)
     {
         int temp = x;
@@ -168,6 +223,7 @@ using System.Reflection;
         Swap(ref i, ref j);
         Console.WriteLine($"{i}{j}");
     }
+    // Out variables
     static void Divide (int x, int y, out int quotient,out int remainder)
     {
         quotient = x / y;
@@ -197,7 +253,7 @@ using System.Reflection;
             }
         }
     }
-    //Statci and instance methods 
+    //Static and instance methods 
     class Entity
     {
         static int s_nextSerialNo;
@@ -217,7 +273,7 @@ using System.Reflection;
         }
         public static void SetNextSerialNo(int value)
         {
-            s_nextSerialNo = value; 
+            s_nextSerialNo = value;
         }
 
         public abstract class Expression
@@ -237,11 +293,12 @@ using System.Reflection;
                 return _value;
             }
         }
-        public class VariableReference : Expresssion
+        public class VariableReference : Expression
         {
             string _name;
 
         }
+        // Method overloading 
         class OverloadingExample
         {
             static void F() => Console.WriteLine("F()");
@@ -249,16 +306,16 @@ using System.Reflection;
             static void F(int x) => Console.WriteLine("F()");
             static void F(double x) => Console.WriteLine("F()");
             static void F<T>(T x) => Console.WriteLine("F()");
-            static void F(double x , double y) => Console.WriteLine("F()");
+            static void F(double x, double y) => Console.WriteLine("F()");
 
             public static void UsageExample()
             {
                 F();
                 F(1);
                 F(1.0);
-                F("abc");  
+                F("abc");
                 F((double)1);
-                F(1,1);
+                F(1, 1);
             }
         }
         // MyList<T>
@@ -274,7 +331,7 @@ using System.Reflection;
         {
             static int s_changeCount;
 
-            static void ListChanged (object sender, EventArgs e)
+            static void ListChanged(object sender, EventArgs e)
             {
                 s_changeCount++;
             }
@@ -286,6 +343,18 @@ using System.Reflection;
         }
         // Operators
         //Finalizers
+
+       
+        //Async Await 
+        public async Task<int> RetrieveDocsHomePage()
+        {
+            var client = new HttpClient();
+            byte[] content = await client.GetByteArrayAsync("https://docs.microsoft.com/");
+            Console.WriteLine($"{{name of(RetrieveDocsHomePage)}}: Finished downloading.");
+            return content.Length;
+        }
+       
+        
     }
 }
 
