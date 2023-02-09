@@ -48,7 +48,9 @@ class Hello {
         Console.WriteLine(e1.GetSerialNo().ToString());
         Console.WriteLine(e2.GetSerialNo().ToString());
         Console.WriteLine(Entity.GetNextSerialNo().ToString());
-
+        double Radius = 2.50;
+        double area = Math.PI * Radius * Radius;
+        Console.WriteLine(area.ToString());
         //Arrays, collections and LINQ
         // One dimensional array iteration 
         int[] c = new int[10];
@@ -103,6 +105,54 @@ class Hello {
             HelpAttribute attr = (HelpAttribute)displayMethodAttributes[0];
             Console.WriteLine($"Display method help URL : {attr.Url} - Related topic : {attr.Topic}");
         }
+        // Microsoft Learn - Hello World Tutorial
+        string greeting = "         Hello World   ";
+        Console.WriteLine($"[{greeting}]");
+
+        string trimmedGreeting = greeting.TrimStart();
+        Console.WriteLine($"[{trimmedGreeting}]");
+
+        trimmedGreeting = greeting.TrimEnd();
+        Console.WriteLine($"[{trimmedGreeting}]");
+
+        trimmedGreeting = greeting.Trim();
+        Console.WriteLine($"[{trimmedGreeting}]");
+        string hello = "Hello World";
+        Console.WriteLine(hello.Replace("Hello", "Hi"));
+        Console.WriteLine(hello.ToUpper());
+        Console.WriteLine(hello.ToLower());
+        Console.WriteLine(hello.Contains("ert").ToString());
+        Console.WriteLine(hello.StartsWith("mustard").ToString());
+        Console.WriteLine(hello.EndsWith("hel").ToString());
+
+        double q = 9;
+        double r = 7;
+        double u = 5;
+        double t = (q + r) / u;
+        Console.WriteLine(t.ToString());
+
+        //The list collection
+        var names = new List<string> { "<name>", "ibukunoluwa", "Felipe","lolll","kevwe!","!monalisa" };
+        names.Add("fearanmi");
+        names.Add("Bill");
+        names.Remove("Felipe");
+        foreach (var name in names)
+        {
+            Console.WriteLine($"Hello {name.ToUpper()}!");
+        }
+        names.IndexOf("ibukunoluwa");
+        var fibonacciNumbers = new List<int> { 0, 1 };
+
+        for (int ij = 1; ij < 20; i++)
+        {
+            var listlen = fibonacciNumbers.Count();
+            fibonacciNumbers.Add(fibonacciNumbers[listlen - 1] + fibonacciNumbers[listlen - 2]);
+        }
+
+        foreach (var item in fibonacciNumbers)
+            Console.WriteLine(item.ToString());
+
+
     }
     // Traditonal class
     public class Point
