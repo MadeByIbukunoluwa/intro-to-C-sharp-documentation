@@ -2,7 +2,6 @@
 
 using System;
 using System.Reflection;
-using System.Appl
 class Hello {
     static void Main()
     {
